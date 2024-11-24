@@ -1,8 +1,7 @@
 import 'dart:async'; // Thêm thư viện Timer
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Screening extends StatefulWidget {
   const Screening({super.key});
