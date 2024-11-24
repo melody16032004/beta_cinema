@@ -1,5 +1,5 @@
-import 'package:beta_cinema/Appbar/app_bar.dart';
-import 'package:beta_cinema/Appbar/tab.dart';
+import 'package:beta_cinema/Body/L%E1%BB%8Bch%20chi%E1%BA%BFu%20theo%20phim/film_schedule.dart';
+import 'package:beta_cinema/Body/L%E1%BB%8Bch%20chi%E1%BA%BFu%20theo%20r%E1%BA%A1p/theater_schedule.dart';
 import 'package:beta_cinema/BottomMenu/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
@@ -29,23 +29,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  int _selectedIndex =
-      0; // Dùng để theo dõi tab được chọn trên Bottom Navigation Bar
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(
-        length: 3,
-        vsync: this); // 3 tabs: Sắp Chiếu, Đang Chiếu, Suất Chiếu Sớm
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+  int _selectedIndex = 0;
 
   // Hàm để thay đổi nội dung dựa trên tab chọn từ Bottom Navigation
   void _onItemTapped(int index) {
@@ -56,29 +40,21 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> pages = [
+      const FilmSchedule(),
+      const TheaterSchedule(),
+      const Center(child: Text('Voucher')),
+      const Center(child: Text('Khuyến mãi')),
+      const Center(child: Text('Khác')),
+    ];
+
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 60, // Tăng chiều cao AppBar
-          backgroundColor: const Color.fromARGB(255, 249, 249, 249),
-          // elevation: 5,
-          title: const AppBarCustom(),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(
-                50.0), // Chiều cao của AppBar (bao gồm cả TabBar)
-            child: TabCustom(tabController: _tabController),
-          ),
-        ),
+        body: pages[_selectedIndex],
         // Bottom Navigation Bar
         bottomNavigationBar: BottomNav(
-            selectedIndex: _selectedIndex, onItemTapped: _onItemTapped),
-        body: TabBarView(
-          controller: _tabController,
-          children: const [
-            Center(child: Text('Nội dung Sắp Chiếu')),
-            Center(child: Text('Nội dung Đang Chiếu')),
-            Center(child: Text('Nội dung Suất Chiếu Sớm')),
-          ],
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
         ),
       ),
     );

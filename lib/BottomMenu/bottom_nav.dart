@@ -22,60 +22,62 @@ class _BottomNavState extends State<BottomNav> {
     return BottomNavigationBar(
       currentIndex: widget._selectedIndex,
       onTap: widget._onItemTapped,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.grey,
+      selectedItemColor: const Color(0xFF03599d),
+      unselectedItemColor: const Color(0xFFb1b9bf),
       selectedLabelStyle: GoogleFonts.inter(
         textStyle: const TextStyle(
-          fontSize: 14, // Chỉnh kích thước font nếu cần
+          fontSize: 10, // Chỉnh kích thước font nếu cần
           fontWeight: FontWeight.w500, // Kiểu font cho mục đã chọn
+          color: Color(0xFF03599d), // Màu chữ cho mục đã chọn
         ),
       ),
       unselectedLabelStyle: GoogleFonts.inter(
         textStyle: const TextStyle(
-          fontSize: 14, // Kích thước font cho mục chưa chọn
-          fontWeight: FontWeight.w400, // Kiểu font cho mục chưa chọn
+          fontSize: 10, // Kích thước font cho mục chưa chọn
+          fontWeight: FontWeight.w500, // Kiểu font cho mục chưa chọn
         ),
       ),
+      showUnselectedLabels: true,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: FaIcon(
-            FontAwesomeIcons.film, // Icon Lịch chiếu theo phim
+            FontAwesomeIcons.film,
             size: 20.0,
-            color: Colors.grey,
+            // color: Colors.grey,
           ),
-          label: 'Lịch chiếu theo phim',
+          label: 'Lịch chiếu\ntheo phim',
         ),
         BottomNavigationBarItem(
           icon: FaIcon(
-            FontAwesomeIcons.locationArrow, // Icon Lịch chiếu theo rạp
+            FontAwesomeIcons.locationDot, // Icon Lịch chiếu theo rạp
             size: 20.0,
-            color: Colors.grey,
+            // color: Colors.grey,
           ),
-          label: 'Lịch chiếu theo rạp',
+          label: 'Lịch chiếu\ntheo rạp',
         ),
         BottomNavigationBarItem(
           icon: FaIcon(
             FontAwesomeIcons.ticketAlt, // Icon Voucher
             size: 20.0,
-            color: Colors.grey,
+            // color: Colors.grey,
           ),
-          label: 'Voucher',
+          label: 'Voucher\n',
         ),
         BottomNavigationBarItem(
           icon: FaIcon(
             FontAwesomeIcons.gift, // Icon hộp quà
             size: 20.0,
-            color: Colors.grey,
+            // color: Colors.grey,
           ),
-          label: 'Khuyến mãi',
+          label: 'Khuyến mãi\n',
         ),
         BottomNavigationBarItem(
           icon: FaIcon(
             FontAwesomeIcons.thLarge, // Icon hộp quà
             size: 20.0,
-            color: Colors.grey,
+            // color: Colors.grey,
           ),
-          label: 'Khác',
+          label: 'Khác\n',
         ),
       ],
     );

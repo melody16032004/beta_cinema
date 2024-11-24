@@ -1,8 +1,8 @@
 // ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
+// ignore: depend_on_referenced_packages
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppBarCustom extends StatefulWidget {
