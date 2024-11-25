@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:beta_cinema/Appbar/app_bar.dart';
 import 'package:beta_cinema/Appbar/tab.dart';
 import 'package:beta_cinema/Body/L%E1%BB%8Bch%20chi%E1%BA%BFu%20theo%20phim/%C4%90ang%20chi%E1%BA%BFu/screening.dart';

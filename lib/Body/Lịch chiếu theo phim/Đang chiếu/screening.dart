@@ -1,6 +1,7 @@
 // Thêm thư viện Timer
 import 'dart:async';
 
+import 'package:beta_cinema/Body/L%E1%BB%8Bch%20chi%E1%BA%BFu%20theo%20phim/book_film.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
@@ -164,149 +165,186 @@ class _ScreeningState extends State<Screening> {
     );
   }
 
-  static Widget buildBannerFilm(
+  Widget buildBannerFilm(
       {String? img, String? filmName, int? duration, int? age, bool? isHot}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Stack(
-          children: [
-            Container(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: img != ''
-                    ? Image.asset(
-                        img!,
-                        fit: BoxFit
-                            .contain, // Lấp đầy khung mà không làm biến dạng ảnh
-                        scale: 4.2,
-                      )
-                    : Container(
-                        width: 98,
-                        height: 150,
-                        color: Colors.blueGrey,
-                      ),
-              ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            transitionDuration:
+                const Duration(milliseconds: 500), // Thời gian chuyển
+            reverseTransitionDuration:
+                const Duration(milliseconds: 500), // Thời gian quay lại
+            pageBuilder: (context, animation, secondaryAnimation) => BookFilm(
+              img: img!,
+              title: filmName!,
+              duration: duration!,
             ),
-            Positioned(
-              top: 5,
-              left: 5,
-              right: 55,
-              child: Container(
-                width: 125,
-                height: 15,
-                padding: const EdgeInsets.all(1.5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2.5),
-                    color: age == null
-                        ? Colors.transparent
-                        : age == 0
-                            ? Colors.green
-                            : age == 13
-                                ? const Color(0xFF6db3e2)
-                                : age == 16
-                                    ? const Color(0xFFf2ce43)
-                                    : const Color(0xFFf193a6)),
-                child: Container(
-                  width: 110,
-                  height: 5,
-                  margin: const EdgeInsets.only(bottom: .5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(2),
-                      border: Border.all(
-                          color:
-                              age == null ? Colors.transparent : Colors.white,
-                          width: .8,
-                          style: BorderStyle.solid)),
-                  child: Center(
-                    child: Text(
-                      age == null
-                          ? ''
-                          : age == 0
-                              ? 'P'
-                              : 'T$age',
-                      style: GoogleFonts.inter(
-                        textStyle: const TextStyle(
-                          fontSize: 7,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              const begin = Offset(1.0, 0.0);
+              const end = Offset.zero;
+              const curve = Curves.decelerate;
+
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+              var offsetAnimation = animation.drive(tween);
+
+              return FadeTransition(
+                opacity: animation, // Thêm hiệu ứng mờ dần
+                child: SlideTransition(
+                  position: offsetAnimation,
+                  child: child,
+                ),
+              );
+            },
+          ),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Stack(
+            children: [
+              Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: img != ''
+                      ? Image.asset(
+                          img!,
+                          fit: BoxFit
+                              .contain, // Lấp đầy khung mà không làm biến dạng ảnh
+                          scale: 4.2,
+                        )
+                      : Container(
+                          width: 98,
+                          height: 150,
+                          color: Colors.blueGrey,
                         ),
-                      ),
-                    ),
-                  ),
                 ),
               ),
-            ),
-            if (isHot!)
               Positioned(
-                top: -3,
-                right: -31,
-                child: Transform.rotate(
-                  angle: 0.785398, // Xoay -45 độ (rad)
+                top: 5,
+                left: 5,
+                right: 55,
+                child: Container(
+                  width: 125,
+                  height: 15,
+                  padding: const EdgeInsets.all(1.5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2.5),
+                      color: age == null
+                          ? Colors.transparent
+                          : age == 0
+                              ? Colors.green
+                              : age == 13
+                                  ? const Color(0xFF6db3e2)
+                                  : age == 16
+                                      ? const Color(0xFFf2ce43)
+                                      : const Color(0xFFf193a6)),
                   child: Container(
-                    padding: const EdgeInsets.only(
-                        left: 30, right: 30, top: 10, bottom: 0),
-                    color: const Color(0xFFf95903),
-                    child: Text(
-                      "HOT",
-                      style: GoogleFonts.inter(
-                        textStyle: const TextStyle(
-                          fontSize: 9,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    width: 110,
+                    height: 5,
+                    margin: const EdgeInsets.only(bottom: .5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(2),
+                        border: Border.all(
+                            color:
+                                age == null ? Colors.transparent : Colors.white,
+                            width: .8,
+                            style: BorderStyle.solid)),
+                    child: Center(
+                      child: Text(
+                        age == null
+                            ? ''
+                            : age == 0
+                                ? 'P'
+                                : 'T$age',
+                        style: GoogleFonts.inter(
+                          textStyle: const TextStyle(
+                            fontSize: 7,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-          ],
-        ),
-        Center(
-          child: Container(
-            color: Colors.transparent,
-            height: 50,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 90,
-                  child: Center(
-                    child: Text(
-                      filmName != '' ? filmName! : 'Không rõ',
-                      style: GoogleFonts.inter(
-                        textStyle: const TextStyle(
-                          fontSize: 10, // Chỉnh kích thước font nếu cần
-                          fontWeight:
-                              FontWeight.w600, // Kiểu font cho mục đã chọn
-                          color: Colors.black, // Màu chữ cho mục đã chọn
-                          overflow: TextOverflow.ellipsis,
+              if (isHot!)
+                Positioned(
+                  top: -3,
+                  right: -31,
+                  child: Transform.rotate(
+                    angle: 0.785398, // Xoay -45 độ (rad)
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          left: 30, right: 30, top: 10, bottom: 0),
+                      color: const Color(0xFFf95903),
+                      child: Text(
+                        "HOT",
+                        style: GoogleFonts.inter(
+                          textStyle: const TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Text(
-                  duration != null ? '$duration phút' : '?? phút',
-                  style: GoogleFonts.inter(
-                    textStyle: const TextStyle(
-                      fontSize: 10, // Chỉnh kích thước font nếu cần
-                      fontWeight: FontWeight.w500, // Kiểu font cho mục đã chọn
-                      color: Colors.grey, // Màu chữ cho mục đã chọn
+            ],
+          ),
+          Center(
+            child: Container(
+              color: Colors.transparent,
+              height: 50,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: Center(
+                      child: Text(
+                        filmName != '' ? filmName! : 'Không rõ',
+                        style: GoogleFonts.inter(
+                          textStyle: const TextStyle(
+                            fontSize: 10, // Chỉnh kích thước font nếu cần
+                            fontWeight:
+                                FontWeight.w600, // Kiểu font cho mục đã chọn
+                            color: Colors.black, // Màu chữ cho mục đã chọn
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  Text(
+                    duration != null ? '$duration phút' : '?? phút',
+                    style: GoogleFonts.inter(
+                      textStyle: const TextStyle(
+                        fontSize: 10, // Chỉnh kích thước font nếu cần
+                        fontWeight:
+                            FontWeight.w500, // Kiểu font cho mục đã chọn
+                        color: Colors.grey, // Màu chữ cho mục đã chọn
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-      ],
+          const SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
     );
   }
 
