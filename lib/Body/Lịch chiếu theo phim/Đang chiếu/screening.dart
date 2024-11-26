@@ -180,6 +180,7 @@ class _ScreeningState extends State<Screening> {
               img: img!,
               title: filmName!,
               duration: duration!,
+              age: age!,
             ),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
